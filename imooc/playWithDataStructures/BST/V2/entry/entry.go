@@ -13,7 +13,6 @@ func main() {
 	bst.Push(15)
 	bst.Push(33)
 	bst.Push(13)
-	bst.Push(37)
 	bst.Push(50)
 	bst.Push(42)
 	bst.Push(53)
@@ -34,4 +33,7 @@ func main() {
 	fmt.Println()
 
 	bst.PreOrderNR()
+	fmt.Println()
+
+	bst.LevelOrder()
 }
