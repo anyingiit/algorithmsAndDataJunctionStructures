@@ -1,6 +1,7 @@
 package V2
 
 import (
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue"
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Stack"
 	"fmt"
 	"strconv"
@@ -21,28 +22,30 @@ func newNode() *node {
 	}
 }
 
-func (n *node) Push(e int) *node {
+// push 以当前节点为根, 向左子树或者又子树添加节点, 最后返回当前节点, 如果当前节点不存在则返回一个新的节点
+func (n *node) push(e int) *node {
 	if n == nil {
-		return newNode().SetE(e)
+		return newNode().setE(e)
 	}
 	if e < n.E {
 		// 对于当前时刻来说是否存在n.Left是未知的, 我们假设执行一下
 		//		如果节点是不存在的:
-		//			那么n.Left.Push()就会返回一个新节点指针, 并且这个节点的值是我们传入的值
+		//			那么n.Left.push()就会返回一个新节点指针, 并且这个节点的值是我们传入的值
 		//		如果节点是存在的:
-		//			那么就又会进行判断, 如果判断需要将元素添加至左孩子那么其又会再次调用n.Left = n.Left.Push(e), 直至调用到某一个Push函数中时刻, 发现当前节点为空, 那么返回一个新的节点指针, 并且这个节点的值是我们传入的值
+		//			那么就又会进行判断, 如果判断需要将元素添加至左孩子那么其又会再次调用n.Left = n.Left.push(e), 直至调用到某一个Push函数中时刻, 发现当前节点为空, 那么返回一个新的节点指针, 并且这个节点的值是我们传入的值
 		//			执行完上述步骤后(即返回新节点那个时刻的函数之后), 再次回到当前位置, 继续执行直至最后一行`return n`返回当前节点的指针, 直到某个个节点为顶点, 顶点也会返回自己的指针, 此时在BST中我们将接收了这个指针, 并且将其赋值给root节点
 		//			* 通过观察可以发现
 		//				* 如果当前节点不为空, 那么返回的指针总是不变的
 		//				* 如果当前节点为空, 那么就会返回全新指针
-		n.Left = n.Left.Push(e)
+		n.Left = n.Left.push(e)
 	} else {
-		n.Right = n.Right.Push(e)
+		n.Right = n.Right.push(e)
 	}
 	return n
 }
 
-func (n *node) Has(e int) bool {
+// has 以当前节点为根, 查找是否存在e
+func (n *node) has(e int) bool {
 	if n == nil {
 		return false
 	}
@@ -55,65 +58,68 @@ func (n *node) Has(e int) bool {
 	// 比节点大的值一定在节点的右子树中, 因为节点得值一定小于右子树
 	// 比节点小的值一定在节点的左子树中, 因为节点的值一定大于左子树
 	if n.E > e {
-		return n.Left.Has(e)
+		return n.Left.has(e)
 	} else {
-		return n.Right.Has(e)
+		return n.Right.has(e)
 	}
 }
 
-func (n *node) SetE(e int) *node {
+// setE 设定当前节点的值, 并且返回该节点
+func (n *node) setE(e int) *node {
 	n.E = e
 	return n
 }
 
-// PreOrder 前序遍历
-func (n *node) PreOrder() {
+// preOrder 以当前节点为根, 进行前序遍历
+func (n *node) preOrder() {
 	if n == nil {
 		return
 	}
 	fmt.Println(n.E)
-	n.Left.PreOrder()
-	n.Right.PreOrder()
+	n.Left.preOrder()
+	n.Right.preOrder()
 }
 
-func (n *node) InOrder() {
+// inOrder 以当前节点为根, 进行中序遍历
+func (n *node) inOrder() {
 	if n == nil {
 		return
 	}
-	n.Left.InOrder()
+	n.Left.inOrder()
 	fmt.Println(n.E)
-	n.Right.InOrder()
+	n.Right.inOrder()
 }
 
-func (n *node) PostOrder() {
+// postOrder 以当前节点为根, 进行后续遍历
+func (n *node) postOrder() {
 	if n == nil {
 		return
 	}
-	n.Left.PostOrder()
-	n.Right.PostOrder()
+	n.Left.postOrder()
+	n.Right.postOrder()
 	fmt.Println(n.E)
 }
 
-//func (n *node) PreOrderNR() {
+//func (n *node) preOrderNR() {
 //	if n == nil {
 //		return
 //	}
 //	stack := Stack.Stack{}
-//	stack.Push(n)
+//	stack.push(n)
 //	for stack.Size() > 0 {
 //		curNode := stack.Pop().(*node)
 //		fmt.Println(curNode.E)
 //		if curNode.Right != nil {
-//			stack.Push(curNode.Right)
+//			stack.push(curNode.Right)
 //		}
 //		if curNode.Left != nil {
-//			stack.Push(curNode.Left)
+//			stack.push(curNode.Left)
 //		}
 //	}
 //}
 
-// PreOrderNR 非递归前序遍历
-func (n *node) PreOrderNR() {
+// preOrderNR 以当前节点为根, 进行非递归前序遍历
+func (n *node) preOrderNR() {
 	// 创建一个栈, 使用这个栈模拟递归用到的系统栈
 	stack := Stack.NewStack()
 	stack.Push(n) // 甭管当前节点是否为空都存进去
@@ -128,7 +134,22 @@ func (n *node) PreOrderNR() {
 	}
 }
 
-// generateBSTString 通过前序遍历的方式生成字符串
+// levelOrder 以当前节点为根, 进行层级遍历
+func (n *node) levelOrder() {
+	queue := Queue.NewQueue()
+	queue.Push(n)
+	for !queue.IsEmpty() {
+		head := queue.Pop().(*node)
+		if head == nil {
+			continue
+		}
+		fmt.Println(head.E)
+		queue.Push(head.Left)
+		queue.Push(head.Right)
+	}
+}
+
+// generateBSTString 以当前节点为跟, 通过前序遍历的方式生成字符串
 func (n *node) generateBSTString(depth int) (result string) {
 	if n == nil {
 		return result + n.generateDepthString(depth) + "null\n"
@@ -153,6 +174,7 @@ type BST struct {
 	size int
 }
 
+// NewBST 生成新的二叉搜索树
 func NewBST() *BST {
 	return &BST{
 		root: nil,
@@ -160,26 +182,35 @@ func NewBST() *BST {
 	}
 }
 
+// Push 添加元素
 func (b *BST) Push(e int) {
-	b.root = b.root.Push(e)
+	b.root = b.root.push(e)
 	b.size++
 }
 
-// PreOrder 前序遍历
+// PreOrder 对整个二叉搜索树进行前序遍历
 func (b *BST) PreOrder() {
-	b.root.PreOrder()
+	b.root.preOrder()
 }
 
+// InOrder 对整个二叉搜索树进行中序遍历
 func (b *BST) InOrder() {
-	b.root.InOrder()
+	b.root.inOrder()
 }
 
+// PostOrder 对整个二叉搜索树进行后续遍历
 func (b *BST) PostOrder() {
-	b.root.PostOrder()
+	b.root.postOrder()
 }
 
+// PreOrderNR 对整个二叉搜索树进行非递归的前序遍历
 func (b *BST) PreOrderNR() {
-	b.root.PreOrderNR()
+	b.root.preOrderNR()
+}
+
+// LevelOrder 对整个BST进行遍历
+func (b *BST) LevelOrder() {
+	b.root.levelOrder()
 }
 
 func (b *BST) GetSize() int {
@@ -187,7 +218,7 @@ func (b *BST) GetSize() int {
 }
 
 func (b *BST) Has(e int) bool {
-	return b.root.Has(e)
+	return b.root.has(e)
 }
 
 // String 按照前序遍历的方式生成字符串, 并实现Stringer接口
