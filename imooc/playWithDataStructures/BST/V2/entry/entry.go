@@ -17,7 +17,7 @@ func main() {
 	bst.Push(42)
 	bst.Push(53)
 	bst.PreOrder()
-	fmt.Println("bst size:", bst.GetSize())
+	fmt.Println("bst size:", bst.Size())
 	fmt.Println("has 50?", bst.Has(50))
 	fmt.Println("has 0?", bst.Has(0))
 
@@ -36,4 +36,76 @@ func main() {
 	fmt.Println()
 
 	bst.LevelOrder()
+	fmt.Println()
+
+	minimum, err := bst.Minimum()
+	fmt.Print("bst minimum: ")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(minimum)
+	}
+
+	maximum, err := bst.Maximum()
+	fmt.Print("bst maximum: ")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(maximum)
+	}
+
+	e, err := bst.RemoveMin()
+
+	fmt.Print("bst delete minimum: ")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(e)
+	}
+
+	minimum, err = bst.Minimum()
+	fmt.Print("bst minimum: ")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(minimum)
+	}
+
+	maximum, err = bst.Maximum()
+	fmt.Print("bst maximum: ")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(maximum)
+	}
+
+	e, err = bst.RemoveMax()
+
+	fmt.Print("bst delete maximum: ")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(e)
+	}
+
+	maximum, err = bst.Maximum()
+	fmt.Print("bst maximum: ")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(maximum)
+	}
+	fmt.Println()
+
+	fmt.Println(bst)
+	fmt.Println()
+
+	err = bst.Remove(50)
+	if err != nil {
+		fmt.Println("delete element 50 failed:", err)
+	}
+	fmt.Println()
+
+	fmt.Println(bst)
+
 }

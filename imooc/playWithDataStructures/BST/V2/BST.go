@@ -38,7 +38,7 @@ func (n *node) push(e int) *node {
 		//				* 如果当前节点不为空, 那么返回的指针总是不变的
 		//				* 如果当前节点为空, 那么就会返回全新指针
 		n.Left = n.Left.push(e)
-	} else {
+	} else if e > n.E {
 		n.Right = n.Right.push(e)
 	}
 	return n
@@ -168,6 +168,62 @@ func (n *node) generateDepthString(depth int) (result string) {
 	return result
 }
 
+// minimum 以当前节点作为根节点, 寻找最小的值并返回. 调用时务必确保被调用节点不为空
+func (n *node) minimum() *node {
+	if n.Left == nil {
+		return n
+	}
+	return n.Left.minimum()
+}
+
+// minimum 以当前节点作为根节点, 寻找最小的值并返回. 调用时务必确保被调用节点不为空
+func (n *node) maximum() *node {
+	if n.Right == nil {
+		return n
+	}
+	return n.Right.maximum()
+}
+
+func (n *node) removeMin() *node {
+	if n.Left == nil {
+		return n.Right
+	}
+	n.Left = n.Left.removeMin()
+	return n
+}
+
+func (n *node) removeMax() *node {
+	// 如果右侧节点为空, 那么自己就是最大的节点
+	// 		所以返回当前节点的左侧作为上一次调用者的右侧节点(即对于上一个调用者来说将当前节点的右孩子替换成了原本右孩子的左孩子. 这也是没问题的, 因为对于调用的右孩子来说, 当前节点是一定小于又子树中的任意孩子的, 其中就当前包括原右侧节点的左孩子)
+	if n.Right == nil {
+		return n.Left
+	}
+	n.Right = n.Right.removeMax()
+	return n
+}
+
+// 以当前节点为根, 返回删除目标后的当前节点
+func (n *node) remove(e int) *node {
+	if n.E == e { //TODO: logic err
+		if n.Left == nil {
+			return n.Right
+		} else if n.Right == nil {
+			return n.Left
+		} else {
+			successor := n.Right.minimum()
+			successor.Left = n.Left
+			successor.Right = n.Right.removeMin()
+			return successor
+		}
+	}
+	if n.E > e {
+		n.Left = n.Left.remove(e)
+	} else {
+		n.Right = n.Right.remove(e)
+	}
+	return n
+}
+
 // BST 二分搜索树
 type BST struct {
 	root *node
@@ -213,8 +269,12 @@ func (b *BST) LevelOrder() {
 	b.root.levelOrder()
 }
 
-func (b *BST) GetSize() int {
+func (b *BST) Size() int {
 	return b.size
+}
+
+func (b *BST) IsEmpty() bool {
+	return b.Size() == 0
 }
 
 func (b *BST) Has(e int) bool {
@@ -224,4 +284,48 @@ func (b *BST) Has(e int) bool {
 // String 按照前序遍历的方式生成字符串, 并实现Stringer接口
 func (b *BST) String() string {
 	return b.root.generateBSTString(0)
+}
+
+func (b *BST) Minimum() (e int, err error) {
+	if b.IsEmpty() {
+		return 0, fmt.Errorf("cat search minimum, because BST is empty")
+	}
+	return b.root.minimum().E, nil
+}
+
+func (b *BST) Maximum() (e int, err error) {
+	if b.IsEmpty() {
+		return 0, fmt.Errorf("cat search maximum, because BST is empty")
+	}
+	return b.root.maximum().E, nil
+}
+
+func (b *BST) RemoveMin() (e int, err error) {
+	minimum, err := b.Minimum()
+	if err != nil {
+		return 0, err
+	}
+	b.root = b.root.removeMin()
+	b.size--
+	return minimum, nil
+}
+
+func (b *BST) RemoveMax() (e int, err error) {
+	maximum, err := b.Maximum()
+	if err != nil {
+		return 0, err
+	}
+	b.root = b.root.removeMax()
+	b.size--
+	return maximum, nil
+}
+
+func (b *BST) Remove(e int) error {
+	has := b.root.has(e)
+	if !has {
+		return fmt.Errorf("remote element failed: cant has element")
+	}
+	b.root = b.root.remove(e)
+	b.size--
+	return nil
 }
