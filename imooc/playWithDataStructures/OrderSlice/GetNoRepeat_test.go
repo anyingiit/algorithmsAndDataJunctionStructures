@@ -1,8 +1,6 @@
-package OrderRepeatIntSlice
+package OrderSlice
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestGetNoRepeat(t *testing.T) {
 	type test struct {
@@ -40,13 +38,16 @@ func TestGetNoRepeat(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		noRepeat := GetNoRepeat(tt.input)
+		noRepeat, err := GetNoRepeat(tt.input)
+		if err != nil {
+			t.Errorf("test GetNoRepeatOrderSlice failed: excute GetNoRepeat has err: %s", err.Error())
+		}
 		if len(noRepeat) != len(tt.expect) {
-			t.Errorf("test GetNoRepeat failed: len check failed, actually %d expect %d", len(noRepeat), len(tt.expect))
+			t.Errorf("test GetNoRepeatOrderSlice failed: len check failed, actually %d expect %d", len(noRepeat), len(tt.expect))
 		}
 		for i, e := range tt.expect {
 			if noRepeat[i] != e {
-				t.Errorf("test GetNoRepeat failed: check result failed, actually %v expect %v", noRepeat, tt.expect)
+				t.Errorf("test GetNoRepeatOrderSlice failed: check result failed, actually %v expect %v", noRepeat, tt.expect)
 				break
 			}
 		}
