@@ -1,12 +1,12 @@
 package main
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/V3"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST"
 	"fmt"
 )
 
 func main() {
-	bst := V3.NewBST()
+	bst := BST.NewBST()
 
 	bst.Push(41)
 	bst.Push(22)
