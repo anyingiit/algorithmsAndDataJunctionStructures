@@ -1,4 +1,4 @@
-package BST
+package V4
 
 import (
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BubbleSort"
@@ -147,7 +147,7 @@ func TestBST_RemoveMin(t *testing.T) {
 			if err != nil {
 				t.Errorf("test BST remove min failed: excute RemoveMin has error %s", err.Error())
 			}
-			actually = append(actually, min.e)
+			actually = append(actually, min)
 		}
 		if len(actually) != len(tt.expect) {
 			t.Errorf("test BST remove min failed: actually delete element count check failed, actually %d expect %d", len(actually), len(tt.expect))
@@ -228,7 +228,7 @@ func TestBST_RemoveMax(t *testing.T) {
 			if err != nil {
 				t.Errorf("test BST remove max failed: excute RemoveMax has error %s", err.Error())
 			}
-			actually = append(actually, max.e)
+			actually = append(actually, max)
 		}
 		if len(actually) != len(tt.expect) {
 			t.Errorf("test BST remove max failed: actually delete element count check failed, actually %d expect %d", len(actually), len(tt.expect))
@@ -329,7 +329,7 @@ func TestBST_Remove(t *testing.T) {
 			if err != nil {
 				t.Errorf("test BST remove failed: BST not is empty, but excute RemoveMax has error %s", err.Error())
 			}
-			actually = append(actually, min.e)
+			actually = append(actually, min)
 		}
 		if len(actually) != len(tt.expect) {
 			t.Errorf("test BST remove failed: actually delete element count check failed, actually %d expect %d", len(actually), len(tt.expect))
