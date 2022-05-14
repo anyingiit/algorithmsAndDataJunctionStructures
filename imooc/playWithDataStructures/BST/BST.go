@@ -108,11 +108,18 @@ func (b *BST) IsEmpty() bool {
 	return b.Size() == 0
 }
 
-func (b *BST) Push(e int) {
+// Push element to BST
+//
+// warning: this BST cannot support repeat element, so this method well return do you really success push to this BST
+// if this method return is false, then because you try push to a repeat element to this BST
+func (b *BST) Push(e int) (isSuccess bool) {
+	isSuccess = false
+
 	var push func(node *node) *node
 	push = func(node *node) *node {
 		if node == nil {
 			b.size++
+			isSuccess = true
 			return newNode(e)
 		}
 		if node.e > e {
@@ -124,6 +131,7 @@ func (b *BST) Push(e int) {
 	}
 
 	b.root = push(b.root)
+	return isSuccess
 }
 
 func (b *BST) Has(e int) bool {
