@@ -18,13 +18,13 @@ func main() {
 	bst.Push(42)
 	bst.Push(53)
 
-	bst.PreOrder()
+	bst.PrintPreOrder()
 	fmt.Println()
 
-	bst.InOrder()
+	bst.PrintInOrder()
 	fmt.Println()
 
-	bst.PostOrder()
+	bst.PrintPostOrder()
 	fmt.Println()
 
 	fmt.Println(bst)
@@ -57,7 +57,7 @@ func main() {
 	fmt.Println(bst.GetLevelOrderNR())
 	fmt.Println()
 
-	bst.PreOrder()
+	bst.PrintPreOrder()
 	fmt.Println()
 	fmt.Println(bst.GetPreOrderNR())
 	fmt.Println()
