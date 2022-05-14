@@ -1,4 +1,4 @@
-package 删除排序数组中的重复项
+package DeleteOrderArrayRepeats
 
 func removeDuplicates(nums []int) int {
 	i, j := 0, 0
