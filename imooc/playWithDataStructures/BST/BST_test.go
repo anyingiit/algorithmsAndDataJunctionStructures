@@ -341,3 +341,150 @@ func TestBST_Remove(t *testing.T) {
 		}
 	}
 }
+
+func TestBST_GetPreOrder(t *testing.T) {
+	type test struct {
+		input  []int
+		expect []int
+	}
+
+	tests := []test{
+		{
+			[]int{5},
+			[]int{5},
+		},
+		{
+			[]int{1, 2},
+			[]int{1, 2},
+		},
+		{
+			[]int{5, 6, 4, 6, 2, 1, 4, 6},
+			[]int{5, 4, 2, 1, 6},
+		},
+		{
+			[]int{9, 1, 3, 6, 5, 4, 1},
+			[]int{9, 1, 3, 6, 5, 4},
+		},
+		{
+			[]int{4, 5, 2, 9, 4, 7, 2, 6, 4, 1, 2, 3, 6, 5, 4, 2, 2, 2, 2},
+			[]int{4, 2, 1, 3, 5, 9, 7, 6},
+		},
+	}
+
+	for _, tt := range tests {
+		bst := NewBST()
+		for _, e := range tt.input {
+			bst.Push(e)
+		}
+
+		actually := bst.GetPreOrder()
+
+		if len(actually) != len(tt.expect) {
+			t.Errorf("test BST GetPreOrder failed: response len check failed, actually %d expect %d. input %v expect %v actually %v", len(actually), len(tt.expect), tt.input, tt.expect, actually)
+		}
+
+		for i, e := range tt.expect {
+			if actually[i] != e {
+				t.Errorf("test BST GetPreOrder failed: response element check failed, actually %d expect %d. input %v expect %v actually %v", actually[i], e, tt.input, tt.expect, actually)
+			}
+		}
+	}
+}
+
+func TestBST_GetInOrder(t *testing.T) {
+	type test struct {
+		input  []int
+		expect []int
+	}
+
+	tests := []test{
+		{
+			[]int{5},
+			[]int{5},
+		},
+		{
+			[]int{1, 2},
+			[]int{1, 2},
+		},
+		{
+			[]int{5, 6, 4, 6, 2, 1, 4, 6},
+			[]int{1, 2, 4, 5, 6},
+		},
+		{
+			[]int{9, 1, 3, 6, 5, 4, 1},
+			[]int{1, 3, 4, 5, 6, 9},
+		},
+		{
+			[]int{4, 5, 2, 9, 4, 7, 2, 6, 4, 1, 2, 3, 6, 5, 4, 2, 2, 2, 2},
+			[]int{1, 2, 3, 4, 5, 6, 7, 9},
+		},
+	}
+
+	for _, tt := range tests {
+		bst := NewBST()
+		for _, e := range tt.input {
+			bst.Push(e)
+		}
+
+		actually := bst.GetInOrder()
+
+		if len(actually) != len(tt.expect) {
+			t.Errorf("test BST GetInOrder failed: response len check failed, actually %d expect %d. input %v expect %v actually %v", len(actually), len(tt.expect), tt.input, tt.expect, actually)
+		}
+
+		for i, e := range tt.expect {
+			if actually[i] != e {
+				t.Errorf("test BST GetInOrder failed: response element check failed, actually %d expect %d. input %v expect %v actually %v", actually[i], e, tt.input, tt.expect, actually)
+			}
+		}
+	}
+}
+
+func TestBST_GetPostOrder(t *testing.T) {
+	type test struct {
+		input  []int
+		expect []int
+	}
+
+	tests := []test{
+		{
+			[]int{5},
+			[]int{5},
+		},
+		{
+			[]int{1, 2},
+			[]int{2, 1},
+		},
+		{
+			[]int{5, 6, 4, 6, 2, 1, 4, 6},
+			[]int{1, 2, 4, 6, 5},
+		},
+		{
+			[]int{9, 1, 3, 6, 5, 4, 1},
+			[]int{4, 5, 6, 3, 1, 9},
+		},
+		{
+			[]int{4, 5, 2, 9, 4, 7, 2, 6, 4, 1, 2, 3, 6, 5, 4, 2, 2, 2, 2},
+			[]int{1, 3, 2, 6, 7, 9, 5, 4},
+		},
+	}
+
+	for _, tt := range tests {
+		bst := NewBST()
+		for _, e := range tt.input {
+			bst.Push(e)
+		}
+
+		actually := bst.GetPostOrder()
+
+		if len(actually) != len(tt.expect) {
+			t.Errorf("test BST GetPostOrder failed: response len check failed, actually %d expect %d. input %v expect %v actually %v", len(actually), len(tt.expect), tt.input, tt.expect, actually)
+		}
+
+		for i, e := range tt.expect {
+			if actually[i] != e {
+				t.Errorf("test BST GetPostOrder failed: response element check failed, actually %d expect %d. input %v expect %v actually %v", actually[i], e, tt.input, tt.expect, actually)
+			}
+		}
+	}
+}

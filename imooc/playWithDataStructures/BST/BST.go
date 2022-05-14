@@ -151,34 +151,35 @@ func (b *BST) Has(e int) bool {
 	return has(b.root)
 }
 
-func (b *BST) PrintPreOrder() {
+func (b *BST) GetPreOrder() (result []int) {
 	var preOrder func(node *node)
 	preOrder = func(node *node) {
 		if node == nil {
 			return
 		}
-		fmt.Println(node.e)
+		result = append(result, node.e)
 		preOrder(node.Left)
 		preOrder(node.Right)
 	}
-
 	preOrder(b.root)
-}
 
-func (b *BST) PrintInOrder() {
+	return result
+}
+func (b *BST) GetInOrder() (result []int) {
 	var inOrder func(node *node)
 	inOrder = func(node *node) {
 		if node == nil {
 			return
 		}
 		inOrder(node.Left)
-		fmt.Println(node.e)
+		result = append(result, node.e)
 		inOrder(node.Right)
 	}
 	inOrder(b.root)
-}
 
-func (b *BST) PrintPostOrder() {
+	return result
+}
+func (b *BST) GetPostOrder() (result []int) {
 	var postOrder func(node *node)
 	postOrder = func(node *node) {
 		if node == nil {
@@ -186,10 +187,30 @@ func (b *BST) PrintPostOrder() {
 		}
 		postOrder(node.Left)
 		postOrder(node.Right)
-		fmt.Println(node.e)
+		result = append(result, node.e)
 	}
-
 	postOrder(b.root)
+
+	return result
+}
+
+func (b *BST) PrintPreOrder() {
+	bstPreOrder := b.GetPreOrder()
+	for _, e := range bstPreOrder {
+		fmt.Println(e)
+	}
+}
+func (b *BST) PrintInOrder() {
+	bstInOrder := b.GetInOrder()
+	for _, e := range bstInOrder {
+		fmt.Println(e)
+	}
+}
+func (b *BST) PrintPostOrder() {
+	bstPostOrder := b.GetPostOrder()
+	for _, e := range bstPostOrder {
+		fmt.Println(e)
+	}
 }
 
 func (b *BST) GetPreOrderNR() (result []int) {
@@ -206,7 +227,6 @@ func (b *BST) GetPreOrderNR() (result []int) {
 	}
 	return result
 }
-
 func (b *BST) GetLevelOrderNR() (result []int) {
 	queue := Queue.NewQueue()
 	queue.Push(b.root)
@@ -250,7 +270,6 @@ func (b *BST) Minimum() (minimumElement int, err error) { //TODO: 到底是返�
 	}
 	return b.root.Minimum().e, nil
 }
-
 func (b *BST) Maximum() (maximumElement int, err error) { //TODO: 到底是返回节点还是值?
 	if b.IsEmpty() {
 		return 0, fmt.Errorf("get Maximum failed: the BST is empty")
@@ -271,7 +290,6 @@ func (b *BST) RemoveMin() (deletedNode *node, err error) {
 	b.size--
 	return deletedNode, nil
 }
-
 func (b *BST) RemoveMax() (deletedNode *node, err error) {
 	if b.IsEmpty() {
 		return nil, fmt.Errorf("cant remove min: BST is empty")
