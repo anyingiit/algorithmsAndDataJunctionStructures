@@ -1,6 +1,8 @@
 package BST
 
 import (
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Stack"
 	"fmt"
 	"strconv"
 )
@@ -112,7 +114,33 @@ func (b *BST) PostOrder() {
 	b.postOrder(b.root)
 }
 
-// TODO: func (b *BST) InOrderNR(){}
+func (b *BST) PreOrderNR() {
+	stack := Stack.NewStack()
+	stack.Push(b.root)
+	for !stack.IsEmpty() {
+		curNode := stack.Pop().(*node)
+		if curNode == nil {
+			continue
+		}
+		fmt.Println(curNode.e)
+		stack.Push(curNode.Right)
+		stack.Push(curNode.Left)
+	}
+}
+
+func (b *BST) LevelOrderNR() {
+	queue := Queue.NewQueue()
+	queue.Push(b.root)
+	for !queue.IsEmpty() {
+		curNode := queue.Pop().(*node)
+		if curNode == nil {
+			continue
+		}
+		fmt.Println(curNode.e)
+		queue.Push(curNode.Left)
+		queue.Push(curNode.Right)
+	}
+}
 
 func (b *BST) generateBSTString(node *node, depth int) (result string) {
 	if node == nil {
