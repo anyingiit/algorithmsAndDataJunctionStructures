@@ -114,7 +114,7 @@ func (b *BST) PostOrder() {
 	b.postOrder(b.root)
 }
 
-func (b *BST) PreOrderNR() {
+func (b *BST) GetPreOrderNR() (result []int) {
 	stack := Stack.NewStack()
 	stack.Push(b.root)
 	for !stack.IsEmpty() {
@@ -122,13 +122,14 @@ func (b *BST) PreOrderNR() {
 		if curNode == nil {
 			continue
 		}
-		fmt.Println(curNode.e)
+		result = append(result, curNode.e)
 		stack.Push(curNode.Right)
 		stack.Push(curNode.Left)
 	}
+	return result
 }
 
-func (b *BST) LevelOrderNR() {
+func (b *BST) GetLevelOrderNR() (result []int) {
 	queue := Queue.NewQueue()
 	queue.Push(b.root)
 	for !queue.IsEmpty() {
@@ -136,17 +137,18 @@ func (b *BST) LevelOrderNR() {
 		if curNode == nil {
 			continue
 		}
-		fmt.Println(curNode.e)
+		result = append(result, curNode.e)
 		queue.Push(curNode.Left)
 		queue.Push(curNode.Right)
 	}
+	return result
 }
 
-func (b *BST) generateBSTString(node *node, depth int) (result string) {
+func (b *BST) getPreOrderFormatString(node *node, depth int) (result string) {
 	if node == nil {
 		return b.generateDepthString(depth) + "null" + "\n"
 	}
-	return b.generateDepthString(depth) + strconv.Itoa(node.e) + "\n" + b.generateBSTString(node.Left, depth+1) + b.generateBSTString(node.Right, depth+1)
+	return b.generateDepthString(depth) + strconv.Itoa(node.e) + "\n" + b.getPreOrderFormatString(node.Left, depth+1) + b.getPreOrderFormatString(node.Right, depth+1)
 }
 
 func (b *BST) generateDepthString(depth int) (depthString string) {
@@ -156,12 +158,12 @@ func (b *BST) generateDepthString(depth int) (depthString string) {
 	return depthString
 }
 
-func (b *BST) GenerateBSTString() (result string) {
-	return b.generateBSTString(b.root, 0)
+func (b *BST) GetPreOrderFormatString() (result string) {
+	return b.getPreOrderFormatString(b.root, 0)
 }
 
 func (b *BST) String() string {
-	return b.GenerateBSTString()
+	return b.GetPreOrderFormatString()
 }
 
 func (b *BST) minimum(node *node) *node {
