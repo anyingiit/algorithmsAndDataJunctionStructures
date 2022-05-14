@@ -1,7 +1,7 @@
 package BST
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/disableVersion/V4"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/V4"
 	"fmt"
 )
 
