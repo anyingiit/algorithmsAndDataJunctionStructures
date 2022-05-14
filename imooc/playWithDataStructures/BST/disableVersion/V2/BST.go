@@ -2,7 +2,7 @@ package V2
 
 import (
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue/SliceQueue"
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Stack"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Stack/SliceStack"
 	"fmt"
 	"strconv"
 )
@@ -104,7 +104,7 @@ func (n *node) postOrder() {
 //	if n == nil {
 //		return
 //	}
-//	stack := Stack.Stack{}
+//	stack := SliceStack.SliceStack{}
 //	stack.push(n)
 //	for stack.Size() > 0 {
 //		curNode := stack.Pop().(*node)
@@ -121,7 +121,7 @@ func (n *node) postOrder() {
 // preOrderNR 以当前节点为根, 进行非递归前序遍历
 func (n *node) preOrderNR() {
 	// 创建一个栈, 使用这个栈模拟递归用到的系统栈
-	stack := Stack.NewStack()
+	stack := SliceStack.NewSliceStack()
 	stack.Push(n) // 甭管当前节点是否为空都存进去
 	for !stack.IsEmpty() {
 		curNode := stack.Pop().(*node)
