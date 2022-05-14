@@ -52,4 +52,13 @@ func main() {
 	}
 
 	fmt.Println(bst)
+	fmt.Println()
+
+	bst.LevelOrderNR()
+	fmt.Println()
+
+	bst.PreOrder()
+	fmt.Println()
+	bst.PreOrderNR()
+	fmt.Println()
 }
