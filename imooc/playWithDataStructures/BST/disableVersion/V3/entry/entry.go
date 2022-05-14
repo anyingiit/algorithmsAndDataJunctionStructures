@@ -1,12 +1,12 @@
 package main
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/disableVersion/V3"
 	"fmt"
 )
 
 func main() {
-	bst := BST.NewBST()
+	bst := V3.NewBST()
 
 	bst.Push(41)
 	bst.Push(22)
@@ -18,13 +18,13 @@ func main() {
 	bst.Push(42)
 	bst.Push(53)
 
-	bst.PrintPreOrder()
+	bst.PreOrder()
 	fmt.Println()
 
-	bst.PrintInOrder()
+	bst.InOrder()
 	fmt.Println()
 
-	bst.PrintPostOrder()
+	bst.PostOrder()
 	fmt.Println()
 
 	fmt.Println(bst)
@@ -57,7 +57,7 @@ func main() {
 	fmt.Println(bst.GetLevelOrderNR())
 	fmt.Println()
 
-	bst.PrintPreOrder()
+	bst.PreOrder()
 	fmt.Println()
 	fmt.Println(bst.GetPreOrderNR())
 	fmt.Println()

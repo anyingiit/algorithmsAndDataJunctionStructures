@@ -1,4 +1,4 @@
-package BST
+package V3
 
 import (
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue"
