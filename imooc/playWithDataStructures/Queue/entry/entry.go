@@ -1,12 +1,12 @@
 package main
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue/SliceQueue"
 	"fmt"
 )
 
 func main() {
-	queue := Queue.NewQueue()
+	queue := SliceQueue.NewSliceQueue()
 	queue.Test()
 
 	queue.Push(5)

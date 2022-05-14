@@ -1,7 +1,7 @@
 package V2
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue/SliceQueue"
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Stack"
 	"fmt"
 	"strconv"
@@ -136,7 +136,7 @@ func (n *node) preOrderNR() {
 
 // levelOrder 以当前节点为根, 进行层级遍历
 func (n *node) levelOrder() {
-	queue := Queue.NewQueue()
+	queue := SliceQueue.NewSliceQueue()
 	queue.Push(n)
 	for !queue.IsEmpty() {
 		head := queue.Pop().(*node)

@@ -1,8 +1,8 @@
-package Queue
+package SliceQueue
 
 import "testing"
 
-func TestQueue_Push(t *testing.T) {
+func TestSliceQueue_Push(t *testing.T) {
 	type test struct {
 		input  []int
 		expect []int
@@ -24,7 +24,7 @@ func TestQueue_Push(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		stack := NewQueue()
+		stack := NewSliceQueue()
 		for _, e := range tt.input {
 			stack.Push(e)
 		}
@@ -35,12 +35,12 @@ func TestQueue_Push(t *testing.T) {
 		}
 
 		if len(actually) != len(tt.expect) {
-			t.Errorf("test Queue failed: check actually len failed actually len %d expect len %d, input %v", len(actually), len(tt.expect), tt.input)
+			t.Errorf("test SliceQueue failed: check actually len failed actually len %d expect len %d, input %v", len(actually), len(tt.expect), tt.input)
 		}
 
 		for i, e := range tt.expect {
 			if actually[i] != e {
-				t.Errorf("test Queue failed: pop got element check failed actually %d expect %d, input %v expect %v", actually[i], e, tt.input, tt.expect)
+				t.Errorf("test SliceQueue failed: pop got element check failed actually %d expect %d, input %v expect %v", actually[i], e, tt.input, tt.expect)
 			}
 		}
 	}
