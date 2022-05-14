@@ -250,36 +250,6 @@ func (b *BST) Maximum() (maximumElement int, err error) { //TODO: 到底是返�
 	return b.root.Maximum().e, nil
 }
 
-//// RemoveTargetNodeMin 如果随便传入一个node, 而且对这个node执行删除min成功了, 会对本二分搜索树size--, 这不合理
-//func (b *BST) RemoveTargetNodeMin(targetNode *node) (deletedNode *node, err error) {
-//	if targetNode == nil {
-//		return nil, fmt.Errorf("cant remove target node min: target node is nil")
-//	}
-//
-//	targetNode, deletedNode = targetNode.RemoveMin()
-//
-//	if deletedNode == nil {
-//		return nil, fmt.Errorf("cant remove target node min: other err")
-//	}
-//	b.size--
-//	return targetNode, nil
-//}
-//
-//// RemoveTargetNodeMax 如果随便传入一个node, 而且对这个node执行删除min成功了, 会对本二分搜索树size--, 这不合理
-//func (b *BST) RemoveTargetNodeMax(targetNode *node) (deletedNode *node, err error) {
-//	if targetNode == nil {
-//		return nil, fmt.Errorf("cant remove target node max: target node is nil")
-//	}
-//
-//	targetNode, deletedNode = targetNode.RemoveMax()
-//
-//	if deletedNode == nil {
-//		return nil, fmt.Errorf("cant remove target node max: other err")
-//	}
-//	b.size--
-//	return targetNode, nil
-//}
-
 func (b *BST) RemoveMin() (deletedNode *node, err error) {
 	if b.IsEmpty() {
 		return nil, fmt.Errorf("cant remove min: BST is empty")
@@ -307,45 +277,6 @@ func (b *BST) RemoveMax() (deletedNode *node, err error) {
 	b.size--
 	return deletedNode, nil
 }
-
-//func (b *BST) remove(targetNode *node, e int) *node { //TODO: logic error
-//	if targetNode == nil {
-//		return nil
-//	}
-//
-//	if targetNode.e > e {
-//		targetNode.Left = b.remove(targetNode.Left, e)
-//	} else if targetNode.e < e {
-//		targetNode.Right = b.remove(targetNode.Right, e)
-//	} else { // targetNode.e == e
-//		if targetNode.Left == nil {
-//			b.size--
-//			return targetNode.Right
-//		} else if targetNode.Right == nil {
-//			b.size--
-//			return targetNode.Left
-//		} else {
-//			var successor *node
-//			targetNode.Right, successor = targetNode.Right.RemoveMin()
-//			b.size--
-//			// 这里踩了个坑, 注意注意!! !!!!必须要先对右节点进行赋值!!!!, 因为当node.Right没有孩子的情况下, successor和node.Right指向的节点是相同的, 在这种情况下, 如果先对successor设置左节点, 就相当于`targetNode.Right.Left=targetNode.Left`, 那么当进行node.Right为根的删除操作时, 函数会错误的视为node.Left(或子树中)为node.Right子树的最小的节点作为返回, 那么返回值就是node.Left, 返回值被赋予给了successor.Right. 假设一种情况: 当前节点的左孩子是叶子节点时, 先进行`successor.Left = targetNode.Left`, 在进行`successor.Right = b.RemoveMin(targetNode.Right)`时, successor.Left的结果是正确的的, 但是successor.Right的结果一定是successor.Left, 这是错误的, 期望successor.Right为空
-//			//		if targetNode.Right.Left == nil && targetNode.Right.Left == nil{
-//			//			successor.Left = targetNode.Left
-//			//			successor.Right = b.RemoveMin(targetNode.Right)
-//			//			// [actually]
-//			//			//		successor.Left == targetNode.Left
-//			//			//		successor.Right == targetNode.Left
-//			//			// [expect]
-//			//			//		success.Left == targetNode.Left
-//			//			//		success.Right == nil
-//			//		}
-//			successor.Right = targetNode.Right
-//			successor.Left = targetNode.Left
-//			return successor
-//		}
-//	}
-//	return targetNode
-//}
 
 func (b *BST) Remove(e int) error { //TODO: logic error
 	var deletedNode *node
