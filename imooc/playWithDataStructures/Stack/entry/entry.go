@@ -1,12 +1,12 @@
 package main
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Stack"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Stack/SliceStack"
 	"fmt"
 )
 
 func main() {
-	stack := Stack.NewStack()
+	stack := SliceStack.NewSliceStack()
 	stack.Push(5)
 	stack.Push(5)
 	stack.Push(5)
