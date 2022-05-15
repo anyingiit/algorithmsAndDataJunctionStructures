@@ -170,10 +170,10 @@ func TestBST_RemoveMin(t *testing.T) {
 	}
 
 	tests := []test{
-		//{
-		//	[]int{5},
-		//	[]int{5},
-		//},
+		{
+			[]int{5},
+			[]int{5},
+		},
 		{
 			[]int{5, 8, 6, 1, 4},
 			[]int{1, 4, 5, 6, 8},
