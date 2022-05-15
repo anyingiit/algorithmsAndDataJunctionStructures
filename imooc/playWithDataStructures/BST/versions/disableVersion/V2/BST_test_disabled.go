@@ -32,7 +32,7 @@ func TestBST_RemoveMin(t *testing.T) {
 		t.Errorf("bst out len check failed, expect %d actually %d", len(tests), len(bstOut))
 	}
 
-	BubbleSort.SortByDESC(tests)
+	BubbleSort.SetSortByDESC(tests)
 
 	for i, expect := range tests {
 		if bstOut[i] != expect {
@@ -65,7 +65,7 @@ func TestBST_RemoveMax(t *testing.T) {
 		t.Errorf("bst out len check failed, expect %d actually %d", len(tests), len(bstOut))
 	}
 
-	BubbleSort.SortByASC(tests)
+	BubbleSort.SetSortByASC(tests)
 
 	for i, expect := range tests {
 		if bstOut[i] != expect {

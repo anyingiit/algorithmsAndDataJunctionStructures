@@ -120,7 +120,7 @@ func TestBST_RemoveMin(t *testing.T) {
 			}
 		}
 
-		BubbleSort.SortByDESC(expect)
+		BubbleSort.SetSortByDESC(expect)
 
 		//t.Logf("lang random data:\ninput: %v\nexpect: %v", input, expect)
 		return test{
@@ -201,7 +201,7 @@ func TestBST_RemoveMax(t *testing.T) {
 			}
 		}
 
-		BubbleSort.SortByASC(expect)
+		BubbleSort.SetSortByASC(expect)
 
 		//t.Logf("lang random data:\ninput: %v\nexpect: %v", input, expect)
 		return test{
@@ -292,7 +292,7 @@ func TestBST_Remove(t *testing.T) {
 			}
 		}
 
-		BubbleSort.SortByDESC(expect)
+		BubbleSort.SetSortByDESC(expect)
 
 		//t.Logf("lang random data:\ninput: %v\nexpect: %v", input, expect)
 		return test{
