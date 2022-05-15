@@ -2,6 +2,7 @@ package V4
 
 import (
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BubbleSort"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/OrderSlice"
 	"fmt"
 	"math/rand"
 	"testing"
@@ -12,11 +13,9 @@ func TestBST_Size(t *testing.T) {
 	for i := 0; i < 1000; i++ {
 		tests = append(tests, rand.Intn(500))
 	}
-
-	noRepeat := make(map[int]bool)
-
-	for _, e := range tests {
-		noRepeat[e] = true
+	noRepeat, err := OrderSlice.GetNoRepeat(BubbleSort.GetSortByDESC(tests))
+	if err != nil {
+		t.Errorf("check size failed: make no repeat elements failed %s", err.Error())
 	}
 
 	noRepeatCount := len(noRepeat)
@@ -57,6 +56,91 @@ func TestBST_Has(t *testing.T) {
 		}
 	}
 
+}
+
+func TestBST_Push(t *testing.T) {
+	type test struct {
+		input              []int
+		expectPushResponse []bool
+		expectOutput       []int
+	}
+
+	tests := []test{
+		{
+			[]int{5},
+			[]bool{true},
+			[]int{5},
+		},
+		{
+			[]int{1, 2},
+			[]bool{true, true},
+			[]int{1, 2},
+		},
+		{
+			[]int{5, 8, 6, 1, 4},
+			[]bool{true, true, true, true, true},
+			[]int{1, 4, 5, 6, 8},
+		},
+		{
+			[]int{5, 8, 6, 1, 4, 6},
+			[]bool{true, true, true, true, true, false},
+			[]int{1, 4, 5, 6, 8},
+		},
+		{
+			[]int{5, 6, 4, 6, 2, 1, 4, 6},
+			[]bool{true, true, true, false, true, true, false, false},
+			[]int{1, 2, 4, 5, 6},
+		},
+		{
+			[]int{9, 1, 3, 6, 5, 4, 1},
+			[]bool{true, true, true, true, true, true, false},
+			[]int{1, 3, 4, 5, 6, 9},
+		},
+		{
+			[]int{4, 5, 2, 9, 4, 7, 2, 6, 4, 1, 2, 3, 6, 5, 4, 2, 2, 2, 2},
+			[]bool{true, true, true, true, false, true, false, true, false, true, false, true, false, false, false, false, false, false, false},
+			[]int{1, 2, 3, 4, 5, 6, 7, 9},
+		},
+	}
+
+	for _, tt := range tests {
+		bst := NewBST()
+
+		var actuallyResponse []bool
+		for _, e := range tt.input {
+			actuallyResponse = append(actuallyResponse, bst.Push(e))
+		}
+
+		if len(actuallyResponse) != len(tt.expectPushResponse) {
+			t.Errorf("test BST Push failed: push response len check failed, actually %v expect %v. input %v expectPushResponse %v actuallyResponse %v", len(actuallyResponse), len(tt.expectPushResponse), tt.input, tt.expectPushResponse, actuallyResponse)
+		}
+
+		for i, e := range tt.expectPushResponse {
+			if actuallyResponse[i] != e {
+				t.Errorf("test BST Push failed: push response check failed, actually %v expect %v. input %v expectPushResponse %v actuallyResponse %v", actuallyResponse[i], e, tt.input, tt.expectPushResponse, actuallyResponse)
+			}
+		}
+
+		var actuallyOutput []int
+
+		for !bst.IsEmpty() {
+			min, err := bst.RemoveMin()
+			if err != nil {
+				t.Errorf("test BST Push failed: RemoveMin failed %s, input %v", err.Error(), tt.input)
+			}
+			actuallyOutput = append(actuallyOutput, min)
+		}
+
+		if len(actuallyOutput) != len(tt.expectOutput) {
+			t.Errorf("test BST Push failed: check expect output len failed, actually %d expect %d. input %v expectOutput %v actuallyOutput %v", len(actuallyOutput), len(tt.expectOutput), tt.input, tt.expectOutput, actuallyOutput)
+		}
+
+		for i, e := range tt.expectOutput {
+			if actuallyOutput[i] != e {
+				t.Errorf("test BST Push failed: check expect output element failed, actually %d expect %d. input %v expectOutput %v actuallyOutput %v", actuallyOutput[i], e, tt.input, tt.expectOutput, actuallyOutput)
+			}
+		}
+	}
 }
 
 func TestBST_String(t *testing.T) {
@@ -120,7 +204,7 @@ func TestBST_RemoveMin(t *testing.T) {
 			}
 		}
 
-		BubbleSort.SortByDESC(expect)
+		BubbleSort.SetSortByDESC(expect)
 
 		//t.Logf("lang random data:\ninput: %v\nexpect: %v", input, expect)
 		return test{
@@ -201,7 +285,7 @@ func TestBST_RemoveMax(t *testing.T) {
 			}
 		}
 
-		BubbleSort.SortByASC(expect)
+		BubbleSort.SetSortByASC(expect)
 
 		//t.Logf("lang random data:\ninput: %v\nexpect: %v", input, expect)
 		return test{
@@ -292,7 +376,7 @@ func TestBST_Remove(t *testing.T) {
 			}
 		}
 
-		BubbleSort.SortByDESC(expect)
+		BubbleSort.SetSortByDESC(expect)
 
 		//t.Logf("lang random data:\ninput: %v\nexpect: %v", input, expect)
 		return test{
