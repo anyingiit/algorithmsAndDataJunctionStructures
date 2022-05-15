@@ -1,7 +1,7 @@
 package V5
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/V5/E"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/disableVersion/V5/E"
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue"
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Stack"
 	"fmt"

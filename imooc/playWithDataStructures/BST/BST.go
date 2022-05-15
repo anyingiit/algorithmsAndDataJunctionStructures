@@ -1,15 +1,9 @@
 package BST
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/V5"
-	V5E "algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/V5/E"
-	V5EInt "algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/V5/E/EInt"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/V4"
 	"fmt"
 )
-
-type E = V5E.E
-
-type EInt = V5EInt.EInt
 
 // BST no repeat BST
 type BST interface {
@@ -20,25 +14,25 @@ type BST interface {
 	//
 	// warning: this BST cannot support repeat element, so this method well return do you really success push to this BST
 	// if this method return is false, then because you try push to a repeat element to this BST
-	Push(e E) (isSuccess bool)
-	Has(e E) bool
-	GetPreOrder() (result []E)
-	GetInOrder() (result []E)
-	GetPostOrder() (result []E)
+	Push(e int) (isSuccess bool)
+	Has(e int) bool
+	GetPreOrder() (result []int)
+	GetInOrder() (result []int)
+	GetPostOrder() (result []int)
 	PrintPreOrder()
 	PrintInOrder()
 	PrintPostOrder()
-	GetPreOrderNR() (result []E)
-	GetLevelOrderNR() (result []E)
+	GetPreOrderNR() (result []int)
+	GetLevelOrderNR() (result []int)
 	GetPreOrderFormatString() string
-	Minimum() (minimumElement E, err error)
-	Maximum() (maximumElement E, err error)
-	RemoveMin() (deletedElement E, err error)
-	RemoveMax() (deletedElement E, err error)
-	Remove(e E) error
+	Minimum() (minimumElement int, err error)
+	Maximum() (maximumElement int, err error)
+	RemoveMin() (deletedElement int, err error)
+	RemoveMax() (deletedElement int, err error)
+	Remove(e int) error
 }
 
 // NewBST return new no repeat BST
 func NewBST() BST {
-	return V5.NewBST()
+	return V4.NewBST()
 }

@@ -1,7 +1,7 @@
 package V5
 
 import (
-	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/V5/E/Eint"
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BST/versions/disableVersion/V5/E/EInt"
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/BubbleSort"
 	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/OrderSlice"
 	"fmt"
