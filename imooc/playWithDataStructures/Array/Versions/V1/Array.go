@@ -25,10 +25,15 @@ func NewArray() *Array {
 }
 
 // resize newSize >= size
-func (a *Array) resize(newSize int) {
+func (a *Array) resize(newSize int) error {
+	if newSize < a.Size() {
+		return fmt.Errorf("cannot resize array, because must newSize >= size")
+	}
 	newSlice := make([]int, newSize)
 	copy(newSlice, a.arr)
 	a.arr = newSlice
+	a.cap = newSize
+	return nil
 }
 
 func (a *Array) Size() int {
@@ -40,8 +45,11 @@ func (a *Array) IsEmpty() bool {
 }
 
 func (a *Array) Append(e int) {
-	if a.size == a.cap {
-		a.resize(a.size * 2)
+	if a.Size() == a.cap {
+		err := a.resize(a.cap * 2)
+		if err != nil {
+			panic(fmt.Errorf("internal error: %d", err))
+		}
 	}
 	a.arr[a.Size()] = e
 	a.size++
@@ -62,9 +70,13 @@ func (a *Array) RemoveFirst(e int) (index int, err error) {
 		return 0, err
 	}
 
-	// 如果实际存储元素的个数比容量的四分之一还小, 则执行resize, 重置容量到当前容量的二分之一
+	// 如果实际存储元素的个数减去一(因为即将要删除一个元素), 小于目前容量的四分之一,则认为需要缩小空间了,
+	// 执行resize, 重置容量到当前容量的二分之一
 	if a.Size()-1 < a.cap/4 {
-		a.resize(a.cap / 2)
+		err := a.resize(a.cap / 2)
+		if err != nil {
+			panic(fmt.Errorf("internal error: %d", err))
+		}
 	}
 
 	if i == a.Size()-1 {
