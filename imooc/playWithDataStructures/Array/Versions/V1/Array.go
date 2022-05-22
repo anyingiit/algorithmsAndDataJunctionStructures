@@ -114,3 +114,11 @@ func (a *Array) Set(index int, newE int) (err error) {
 	a.arr[index] = newE
 	return nil
 }
+
+func (a *Array) Swap(i, j int) error {
+	if i < 0 || i > a.Size()-1 || j < 0 || j > a.Size()-1 {
+		return fmt.Errorf("swap index i=%d, j=%d failed: plaese make sure i >= 0 and i < size and j >= 0 and j < size", i, j)
+	}
+	a.arr[i], a.arr[j] = a.arr[j], a.arr[i]
+	return nil
+}
