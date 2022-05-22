@@ -11,6 +11,7 @@ type Array interface {
 	Get(index int) (e int, err error)
 	IndexFirst(e int) (index int, err error)
 	Set(index int, newE int) (err error)
+	Swap(i, j int) error
 }
 
 func NewArray() Array {
