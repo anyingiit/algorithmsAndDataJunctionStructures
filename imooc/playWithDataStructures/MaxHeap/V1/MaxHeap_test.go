@@ -98,6 +98,34 @@ func TestMaxHeap_Add(t *testing.T) {
 	}
 }
 
+func BenchmarkMaxHeap_Add(b *testing.B) {
+	var tests []int
+	for i := 0; i < b.N; i++ {
+		tests = append(tests, rand.Intn(100000))
+	}
+	b.ResetTimer()
+
+	maxHeap := NewMaxHeap()
+	for i := 0; i < b.N; i++ {
+		maxHeap.Add(tests[i])
+	}
+}
+
+func BenchmarkMaxHeap_ExtractMax(b *testing.B) {
+	maxHeap := NewMaxHeap()
+	for i := 0; i < b.N; i++ {
+		maxHeap.Add(rand.Intn(100000))
+	}
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		_, err := maxHeap.ExtractMax()
+		if err != nil {
+			b.Errorf("failed: ExtractMax has err %s", err.Error())
+		}
+	}
+}
+
 func TestMaxHeap_ExtractMax(t *testing.T) {
 	type test struct {
 		input []int
