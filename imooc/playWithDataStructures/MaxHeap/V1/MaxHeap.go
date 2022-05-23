@@ -66,12 +66,7 @@ func (m *MaxHeap) ExtractMax() (int, error) {
 // siftDown 使用非递归下浮(siftDown)
 func (m *MaxHeap) siftDown(index int) {
 	inspect := index
-	for {
-		// 坐标为叶子节点时遍历时结束
-		if !m.hasIndex(m.leftChild(inspect)) && !m.hasIndex(m.rightChild(inspect)) {
-			break
-		}
-
+	for m.hasIndex(m.leftChild(inspect)) { // 如果存在左孩子就说明两件事: 1. 左孩子存在 2. 还没到底, inspect还不是叶子结点
 		maxIndex := m.leftChild(inspect)
 		if m.hasIndex(m.rightChild(inspect)) && m.data[m.rightChild(inspect)] > m.data[maxIndex] {
 			maxIndex = m.rightChild(inspect)
