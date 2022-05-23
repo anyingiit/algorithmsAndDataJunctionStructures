@@ -51,24 +51,6 @@ func (m *MaxHeap) siftUp(index int) {
 	}
 }
 
-//// siftUp 使用非递归实现上浮(siftUp)
-//func (m *MaxHeap) siftUp(index int) {
-//	inspect := index
-//	for inspect > 0 && m.data[inspect] > m.data[m.parent(inspect)] {
-//		m.data[inspect], m.data[m.parent(inspect)] = m.data[m.parent(inspect)], m.data[inspect]
-//		inspect = m.parent(inspect)
-//	}
-//}
-
-//// siftUp 使用递归实现上浮(siftUp)
-//func (m *MaxHeap) siftUp(index int) {
-//	if index <= 0 || m.data[index] <= m.data[m.parent(index)] {
-//		return
-//	}
-//	m.data[index], m.data[m.parent(index)] = m.data[m.parent(index)], m.data[index]
-//	m.siftUp(m.parent(index))
-//}
-
 // ExtractMax 提取最大元素
 func (m *MaxHeap) ExtractMax() (int, error) {
 	if m.IsEmpty() {
