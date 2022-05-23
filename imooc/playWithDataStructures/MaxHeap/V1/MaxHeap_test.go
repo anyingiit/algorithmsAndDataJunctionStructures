@@ -160,3 +160,55 @@ func TestMaxHeap_ExtractMax(t *testing.T) {
 		}
 	}
 }
+
+func TestNewMaxHeapForArr(t *testing.T) {
+	type test struct {
+		input []int
+	}
+	var tests []test
+
+	tests = append(tests, func() (tt test) {
+		for i := 0; i < 1000; i++ {
+			tt.input = append(tt.input, rand.Intn(700))
+		}
+		return tt
+	}())
+
+	for _, tt := range tests {
+		maxHeap := NewMaxHeapForArr(tt.input)
+
+		var actually []int
+		for !maxHeap.IsEmpty() {
+			extractMax, err := maxHeap.ExtractMax()
+			if err != nil {
+				t.Errorf("test new max heap for arr(Heapify) failed: excute ExtractMax has err %s", err.Error())
+			}
+			actually = append(actually, extractMax)
+		}
+
+		if !OrderSlice.IsASC(actually) {
+			t.Errorf("test new max heap for arr(Heapify) failed: actually not is order by ASC")
+		}
+	}
+}
+
+func BenchmarkNewMaxHeapForArr(b *testing.B) {
+	type test struct {
+		input []int
+	}
+	var tests []test
+
+	for i := 0; i < b.N; i++ {
+		tests = append(tests, func() (tt test) {
+			for i := 0; i < 1000; i++ {
+				tt.input = append(tt.input, rand.Intn(700))
+			}
+			return tt
+		}())
+	}
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		NewMaxHeapForArr(tests[i].input)
+	}
+}
