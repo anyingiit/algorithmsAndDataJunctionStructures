@@ -113,12 +113,12 @@ func TestBST_Push(t *testing.T) {
 		}
 
 		if len(actuallyResponse) != len(tt.expectPushResponse) {
-			t.Errorf("test BST_V5 Push failed: push response len check failed, actually %v expect %v. input %v expectPushResponse %v actuallyResponse %v", len(actuallyResponse), len(tt.expectPushResponse), tt.input, tt.expectPushResponse, actuallyResponse)
+			t.Errorf("test BST_V5 Enqueue failed: push response len check failed, actually %v expect %v. input %v expectPushResponse %v actuallyResponse %v", len(actuallyResponse), len(tt.expectPushResponse), tt.input, tt.expectPushResponse, actuallyResponse)
 		}
 
 		for i, e := range tt.expectPushResponse {
 			if actuallyResponse[i] != e {
-				t.Errorf("test BST_V5 Push failed: push response check failed, actually %v expect %v. input %v expectPushResponse %v actuallyResponse %v", actuallyResponse[i], e, tt.input, tt.expectPushResponse, actuallyResponse)
+				t.Errorf("test BST_V5 Enqueue failed: push response check failed, actually %v expect %v. input %v expectPushResponse %v actuallyResponse %v", actuallyResponse[i], e, tt.input, tt.expectPushResponse, actuallyResponse)
 			}
 		}
 
@@ -127,18 +127,18 @@ func TestBST_Push(t *testing.T) {
 		for !bst.IsEmpty() {
 			min, err := bst.RemoveMin()
 			if err != nil {
-				t.Errorf("test BST_V5 Push failed: RemoveMin failed %s, input %v", err.Error(), tt.input)
+				t.Errorf("test BST_V5 Enqueue failed: RemoveMin failed %s, input %v", err.Error(), tt.input)
 			}
 			actuallyOutput = append(actuallyOutput, min.Data().(int))
 		}
 
 		if len(actuallyOutput) != len(tt.expectOutput) {
-			t.Errorf("test BST_V5 Push failed: check expect output len failed, actually %d expect %d. input %v expectOutput %v actuallyOutput %v", len(actuallyOutput), len(tt.expectOutput), tt.input, tt.expectOutput, actuallyOutput)
+			t.Errorf("test BST_V5 Enqueue failed: check expect output len failed, actually %d expect %d. input %v expectOutput %v actuallyOutput %v", len(actuallyOutput), len(tt.expectOutput), tt.input, tt.expectOutput, actuallyOutput)
 		}
 
 		for i, e := range tt.expectOutput {
 			if actuallyOutput[i] != e {
-				t.Errorf("test BST_V5 Push failed: check expect output element failed, actually %d expect %d. input %v expectOutput %v actuallyOutput %v", actuallyOutput[i], e, tt.input, tt.expectOutput, actuallyOutput)
+				t.Errorf("test BST_V5 Enqueue failed: check expect output element failed, actually %d expect %d. input %v expectOutput %v actuallyOutput %v", actuallyOutput[i], e, tt.input, tt.expectOutput, actuallyOutput)
 			}
 		}
 	}

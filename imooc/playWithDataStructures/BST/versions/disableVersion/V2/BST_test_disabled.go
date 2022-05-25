@@ -98,7 +98,7 @@ func TestBST_Push(t *testing.T) {
 	fmt.Println(bst)
 
 	if expectSize != actuallySize {
-		t.Errorf("test BST Push failed: check BST size failed, expectSize %d actuallySize %d", expectSize, actuallySize)
+		t.Errorf("test BST Enqueue failed: check BST size failed, expectSize %d actuallySize %d", expectSize, actuallySize)
 	}
 }
 

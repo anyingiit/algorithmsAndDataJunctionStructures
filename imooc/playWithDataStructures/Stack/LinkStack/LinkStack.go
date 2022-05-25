@@ -47,7 +47,7 @@ func (l *LinkStack) IsEmpty() bool {
 }
 
 // Push element to head and LinkStack size++
-func (l *LinkStack) Push(e interface{}) {
+func (l *LinkStack) Enqueue(e interface{}) {
 	l.head = l.head.pushHead(e)
 	l.size++
 }
@@ -57,7 +57,7 @@ func (l *LinkStack) Push(e interface{}) {
 // Get head element and LinkStack size--
 //
 // Warning: You need make sure the LinkStack not is empty
-func (l *LinkStack) Pop() interface{} {
+func (l *LinkStack) Dequeue() interface{} {
 	e := l.head.e
 	l.head = l.head.next
 	l.size--

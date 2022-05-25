@@ -9,7 +9,7 @@ func NewSliceStack() *SliceStack {
 	return &SliceStack{nil}
 }
 
-func (s *SliceStack) Push(e interface{}) {
+func (s *SliceStack) Enqueue(e interface{}) {
 	s.rawSlice = append(s.rawSlice, e)
 }
 
@@ -21,7 +21,7 @@ func (s *SliceStack) IsEmpty() bool {
 	return s.Size() == 0
 }
 
-func (s *SliceStack) Pop() interface{} {
+func (s *SliceStack) Dequeue() interface{} {
 	last := s.rawSlice[s.Size()-1]
 	s.rawSlice = s.rawSlice[:s.Size()-1]
 	return last

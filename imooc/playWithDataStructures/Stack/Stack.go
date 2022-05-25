@@ -5,8 +5,8 @@ import (
 )
 
 type Stack interface {
-	Push(e interface{})
-	Pop() interface{}
+	Enqueue(e interface{})
+	Dequeue() interface{}
 	Size() int
 	IsEmpty() bool
 }

@@ -7,14 +7,14 @@ import (
 
 func main() {
 	stack := SliceStack.NewSliceStack()
-	stack.Push(5)
-	stack.Push(5)
-	stack.Push(5)
-	stack.Push(5)
-	fmt.Println(stack.Pop())
-	fmt.Println(stack.Pop())
-	fmt.Println(stack.Pop())
-	fmt.Println(stack.Pop())
+	stack.Enqueue(5)
+	stack.Enqueue(5)
+	stack.Enqueue(5)
+	stack.Enqueue(5)
+	fmt.Println(stack.Dequeue())
+	fmt.Println(stack.Dequeue())
+	fmt.Println(stack.Dequeue())
+	fmt.Println(stack.Dequeue())
 	fmt.Println(stack.Size())
 
 }
