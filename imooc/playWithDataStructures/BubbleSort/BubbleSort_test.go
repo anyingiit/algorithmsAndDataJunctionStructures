@@ -1,6 +1,7 @@
 package BubbleSort
 
 import (
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/OrderSlice"
 	"math/rand"
 	"testing"
 )
@@ -112,6 +113,24 @@ func TestGetSortByASC(t *testing.T) {
 	for i := 0; i < len(ascResult)-1; i++ {
 		if ascResult[i] < ascResult[i+1] {
 			t.Errorf("test failed")
+		}
+	}
+}
+
+func BenchmarkGetSortByASC(b *testing.B) {
+	tests := func() (result []int) {
+		for i := 0; i < 100000; i++ {
+			result = append(result, rand.Intn(700))
+		}
+		return result
+	}()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		sortedArr := GetSortByASC(tests)
+
+		if !OrderSlice.IsASC(sortedArr) {
+			b.Errorf("check GetSortByASC failed: check return slice not is a order by ASC slice")
 		}
 	}
 }
