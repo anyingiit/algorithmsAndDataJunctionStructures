@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestGetSort(t *testing.T) {
+func TestGetSortByDESC(t *testing.T) {
 	tests := func() (result []int) {
 		for i := 0; i < 1000; i++ {
 			result = append(result, rand.Intn(700))
@@ -14,14 +14,14 @@ func TestGetSort(t *testing.T) {
 		return result
 	}()
 
-	maxHeapArr := GetSort(tests)
+	maxHeapArr := GetSortByDESC(tests)
 
 	if !OrderSlice.IsDESC(maxHeapArr) {
-		t.Errorf("check GetHeapSort failed: check return slice not is a order by ASC slice")
+		t.Errorf("check GetSortByDESC failed: check return slice not is a order by ASC slice")
 	}
 }
 
-func TestSetSort(t *testing.T) {
+func TestSetSortByDESC(t *testing.T) {
 	tests := func() (result []int) {
 		for i := 0; i < 1000; i++ {
 			result = append(result, rand.Intn(700))
@@ -29,14 +29,14 @@ func TestSetSort(t *testing.T) {
 		return result
 	}()
 
-	SetSort(tests)
+	SetSortByDESC(tests)
 
 	if !OrderSlice.IsDESC(tests) {
-		t.Errorf("check GetHeapSort failed: check return slice not is a order by ASC slice")
+		t.Errorf("check SetSortByDESC failed: check return slice not is a order by ASC slice")
 	}
 }
 
-func BenchmarkGetSort(b *testing.B) {
+func BenchmarkGetSortByDESC(b *testing.B) {
 	tests := func() (result []int) {
 		for i := 0; i < 100000; i++ {
 			result = append(result, rand.Intn(700))
@@ -46,10 +46,10 @@ func BenchmarkGetSort(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		sortedArr := GetSort(tests)
+		sortedArr := GetSortByDESC(tests)
 
 		if !OrderSlice.IsDESC(sortedArr) {
-			b.Errorf("check GetHeapSort failed: check return slice not is a order by ASC slice")
+			b.Errorf("check GetSortByDESC failed: check return slice not is a order by ASC slice")
 		}
 	}
 }
