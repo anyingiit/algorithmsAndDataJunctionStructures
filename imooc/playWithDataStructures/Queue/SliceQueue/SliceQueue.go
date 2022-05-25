@@ -7,12 +7,16 @@ import (
 // SliceQueue 后进先出
 type SliceQueue []interface{}
 
+func (q *SliceQueue) GetFront() interface{} {
+	return (*q)[0]
+}
+
 func NewSliceQueue() *SliceQueue {
 	return &SliceQueue{}
 }
 
-// Push element to back and SliceQueue size++
-func (q *SliceQueue) Push(e interface{}) {
+// Enqueue push element to back and SliceQueue size++
+func (q *SliceQueue) Enqueue(e interface{}) {
 	*q = append(*q, e)
 }
 
@@ -24,12 +28,12 @@ func (q *SliceQueue) IsEmpty() bool {
 	return q.Size() == 0
 }
 
-// Pop
+// Dequeue
 //
 // Get head element and SliceQueue size--
 //
 // Warning: You need make sure the LinkQueue not is empty
-func (q *SliceQueue) Pop() interface{} {
+func (q *SliceQueue) Dequeue() interface{} {
 	head := (*q)[0]
 	*q = (*q)[1:]
 	return head

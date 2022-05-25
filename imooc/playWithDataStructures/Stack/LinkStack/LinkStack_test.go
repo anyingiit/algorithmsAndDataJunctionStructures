@@ -26,12 +26,12 @@ func TestLinkStack_Push(t *testing.T) {
 	for _, tt := range tests {
 		stack := NewLinkStack()
 		for _, e := range tt.input {
-			stack.Push(e)
+			stack.Enqueue(e)
 		}
 
 		var actually []int
 		for !stack.IsEmpty() {
-			actually = append(actually, stack.Pop().(int))
+			actually = append(actually, stack.Dequeue().(int))
 		}
 
 		if len(actually) != len(tt.expect) {

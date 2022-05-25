@@ -107,7 +107,7 @@ func (n *node) postOrder() {
 //	stack := SliceStack.SliceStack{}
 //	stack.push(n)
 //	for stack.Size() > 0 {
-//		curNode := stack.Pop().(*node)
+//		curNode := stack.Dequeue().(*node)
 //		fmt.Println(curNode.E)
 //		if curNode.Right != nil {
 //			stack.push(curNode.Right)
@@ -122,30 +122,30 @@ func (n *node) postOrder() {
 func (n *node) preOrderNR() {
 	// 创建一个栈, 使用这个栈模拟递归用到的系统栈
 	stack := SliceStack.NewSliceStack()
-	stack.Push(n) // 甭管当前节点是否为空都存进去
+	stack.Enqueue(n) // 甭管当前节点是否为空都存进去
 	for !stack.IsEmpty() {
-		curNode := stack.Pop().(*node)
+		curNode := stack.Dequeue().(*node)
 		if curNode == nil { // 不管是不是空都存了进来, 所以判断下, 如果是空的就跳过
 			continue
 		}
 		fmt.Println(curNode.E)
-		stack.Push(curNode.Right) // 甭管左孩子是否为空都存进去
-		stack.Push(curNode.Left)  // 甭管右孩子是否为空都存进去
+		stack.Enqueue(curNode.Right) // 甭管左孩子是否为空都存进去
+		stack.Enqueue(curNode.Left)  // 甭管右孩子是否为空都存进去
 	}
 }
 
 // levelOrder 以当前节点为根, 进行层级遍历
 func (n *node) levelOrder() {
 	queue := SliceQueue.NewSliceQueue()
-	queue.Push(n)
+	queue.Enqueue(n)
 	for !queue.IsEmpty() {
-		head := queue.Pop().(*node)
+		head := queue.Dequeue().(*node)
 		if head == nil {
 			continue
 		}
 		fmt.Println(head.E)
-		queue.Push(head.Left)
-		queue.Push(head.Right)
+		queue.Enqueue(head.Left)
+		queue.Enqueue(head.Right)
 	}
 }
 

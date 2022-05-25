@@ -25,6 +25,10 @@ type LinkQueue struct {
 	size int
 }
 
+func (l *LinkQueue) GetFront() interface{} {
+	return l.head.e
+}
+
 func NewLinkQueue() *LinkQueue {
 	return &LinkQueue{
 		head: nil,
@@ -40,18 +44,18 @@ func (l *LinkQueue) IsEmpty() bool {
 	return l.Size() == 0
 }
 
-// Push element to back and LinkQueue size++
-func (l *LinkQueue) Push(e interface{}) {
+// Enqueue push element to back and LinkQueue size++
+func (l *LinkQueue) Enqueue(e interface{}) {
 	l.head = l.head.pushBack(e)
 	l.size++
 }
 
-// Pop
+// Dequeue
 //
 // Get head element and LinkQueue size--
 //
 // Warning: You need make sure the LinkQueue not is empty
-func (l *LinkQueue) Pop() interface{} {
+func (l *LinkQueue) Dequeue() interface{} {
 	e := l.head.e
 	l.head = l.head.next
 	l.size--

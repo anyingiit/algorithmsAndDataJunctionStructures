@@ -3,8 +3,12 @@ package Queue
 import "algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/Queue/LinkQueue"
 
 type Queue interface {
-	Push(e interface{})
-	Pop() interface{}
+	// Enqueue push a element to Queue
+	Enqueue(e interface{})
+	// Dequeue pop head element
+	Dequeue() interface{}
+	// GetFront return head element
+	GetFront() interface{}
 	Size() int
 	IsEmpty() bool
 }

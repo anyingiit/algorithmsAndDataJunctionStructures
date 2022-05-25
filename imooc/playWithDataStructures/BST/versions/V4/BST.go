@@ -215,29 +215,29 @@ func (b *BST) PrintPostOrder() {
 
 func (b *BST) GetPreOrderNR() (result []int) {
 	stack := Stack.NewStack()
-	stack.Push(b.root)
+	stack.Enqueue(b.root)
 	for !stack.IsEmpty() {
-		curNode := stack.Pop().(*node)
+		curNode := stack.Dequeue().(*node)
 		if curNode == nil {
 			continue
 		}
 		result = append(result, curNode.e)
-		stack.Push(curNode.Right)
-		stack.Push(curNode.Left)
+		stack.Enqueue(curNode.Right)
+		stack.Enqueue(curNode.Left)
 	}
 	return result
 }
 func (b *BST) GetLevelOrderNR() (result []int) {
 	queue := Queue.NewQueue()
-	queue.Push(b.root)
+	queue.Enqueue(b.root)
 	for !queue.IsEmpty() {
-		curNode := queue.Pop().(*node)
+		curNode := queue.Dequeue().(*node)
 		if curNode == nil {
 			continue
 		}
 		result = append(result, curNode.e)
-		queue.Push(curNode.Left)
-		queue.Push(curNode.Right)
+		queue.Enqueue(curNode.Left)
+		queue.Enqueue(curNode.Right)
 	}
 	return result
 }
