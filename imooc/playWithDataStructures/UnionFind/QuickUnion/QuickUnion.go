@@ -4,7 +4,7 @@ import "fmt"
 
 // UnionFind for quick union
 type UnionFind struct {
-	id []int
+	parent []int
 }
 
 func NewUnionFind(size int) *UnionFind {
@@ -16,7 +16,7 @@ func NewUnionFind(size int) *UnionFind {
 }
 
 func (u *UnionFind) GetSize() int {
-	return len(u.id)
+	return len(u.parent)
 }
 
 func (u *UnionFind) IsConnected(p, q int) (bool, error) {
@@ -40,7 +40,7 @@ func (u *UnionFind) UnionElements(p, q int) error {
 	if err != nil {
 		return fmt.Errorf("cannot union element p, q is connected, because find q failed: %s", err.Error())
 	}
-	u.id[pId] = qId
+	u.parent[pId] = qId
 	return nil
 }
 
@@ -51,10 +51,10 @@ func (u *UnionFind) find(p int) (int, error) {
 
 	var f func(q int) int
 	f = func(q int) int {
-		if u.id[q] == q {
+		if u.parent[q] == q {
 			return q
 		}
-		return f(u.id[q])
+		return f(u.parent[q])
 	}
 
 	return f(p), nil
