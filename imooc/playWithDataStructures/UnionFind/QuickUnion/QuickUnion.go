@@ -1,0 +1,61 @@
+package QuickUnion
+
+import "fmt"
+
+// UnionFind for quick union
+type UnionFind struct {
+	id []int
+}
+
+func NewUnionFind(size int) *UnionFind {
+	list := make([]int, size)
+	for i := range list {
+		list[i] = i
+	}
+	return &UnionFind{list}
+}
+
+func (u *UnionFind) GetSize() int {
+	return len(u.id)
+}
+
+func (u *UnionFind) IsConnected(p, q int) (bool, error) {
+	pId, err := u.find(p)
+	if err != nil {
+		return false, fmt.Errorf("cannot check p, q is connected, because find p failed: %s", err.Error())
+	}
+	qId, err := u.find(q)
+	if err != nil {
+		return false, fmt.Errorf("cannot check p, q is connected, because find q failed: %s", err.Error())
+	}
+	return pId == qId, nil
+}
+
+func (u *UnionFind) UnionElements(p, q int) error {
+	pId, err := u.find(p)
+	if err != nil {
+		return fmt.Errorf("cannot union element p, q is connected, because find p failed: %s", err.Error())
+	}
+	qId, err := u.find(q)
+	if err != nil {
+		return fmt.Errorf("cannot union element p, q is connected, because find q failed: %s", err.Error())
+	}
+	u.id[pId] = qId
+	return nil
+}
+
+func (u *UnionFind) find(p int) (int, error) {
+	if p < 0 || p > u.GetSize()-1 {
+		return 0, fmt.Errorf("p out of bound")
+	}
+
+	var f func(q int) int
+	f = func(q int) int {
+		if u.id[q] == q {
+			return q
+		}
+		return f(u.id[q])
+	}
+
+	return f(p), nil
+}
