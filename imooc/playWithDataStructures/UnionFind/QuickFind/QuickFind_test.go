@@ -4,9 +4,13 @@ import "testing"
 
 func TestUnionFind(t *testing.T) {
 	type test struct {
-		size      int
-		unions    [][2]int
-		connected [][]int
+		size        int
+		unions      [][2]int
+		connected   [][]int
+		unConnected []struct {
+			target int
+			checks []int
+		}
 	}
 
 	var tests = []test{
@@ -22,6 +26,19 @@ func TestUnionFind(t *testing.T) {
 				{1, 2},
 				{3, 3},
 				{5, 4, 6},
+			},
+			[]struct {
+				target int
+				checks []int
+			}{
+				{
+					0,
+					[]int{1, 2, 3, 4, 5, 6},
+				},
+				{
+					3,
+					[]int{1, 2, 4, 5, 6},
+				},
 			},
 		},
 	}
@@ -59,6 +76,18 @@ func TestUnionFind(t *testing.T) {
 					if !connected {
 						t.Errorf("check UnionFind failed: expect true actually false. q %d p %d", e[i], e[j])
 					}
+				}
+			}
+		}
+
+		for _, e := range tt.unConnected {
+			for _, ee := range e.checks {
+				connected, err := unionFind.IsConnected(e.target, ee)
+				if err != nil {
+					t.Errorf("check UnionFind failed: excute union elements has err: %s. q %d p %d", err.Error(), e.target, ee)
+				}
+				if connected {
+					t.Errorf("check UnionFind failed: expect false actually true. q %d p %d", e.target, ee)
 				}
 			}
 		}
