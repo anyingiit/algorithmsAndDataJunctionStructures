@@ -20,27 +20,27 @@ func (u *UnionFind) GetSize() int {
 }
 
 func (u *UnionFind) IsConnected(p, q int) (bool, error) {
-	pId, err := u.find(p)
+	pRoot, err := u.find(p)
 	if err != nil {
 		return false, fmt.Errorf("cannot check p, q is connected, because find p failed: %s", err.Error())
 	}
-	qId, err := u.find(q)
+	qRoot, err := u.find(q)
 	if err != nil {
 		return false, fmt.Errorf("cannot check p, q is connected, because find q failed: %s", err.Error())
 	}
-	return pId == qId, nil
+	return pRoot == qRoot, nil
 }
 
 func (u *UnionFind) UnionElements(p, q int) error {
-	pId, err := u.find(p)
+	pRoot, err := u.find(p)
 	if err != nil {
 		return fmt.Errorf("cannot union element p, q is connected, because find p failed: %s", err.Error())
 	}
-	qId, err := u.find(q)
+	qRoot, err := u.find(q)
 	if err != nil {
 		return fmt.Errorf("cannot union element p, q is connected, because find q failed: %s", err.Error())
 	}
-	u.parent[pId] = qId
+	u.parent[pRoot] = qRoot
 	return nil
 }
 
