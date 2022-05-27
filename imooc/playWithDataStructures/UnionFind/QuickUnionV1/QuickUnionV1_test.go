@@ -1,4 +1,4 @@
-package QuickUnion
+package QuickUnionV1
 
 import "testing"
 
