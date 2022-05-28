@@ -1,6 +1,8 @@
 package UnionFind
 
-import "algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/UnionFind/QuickFind"
+import (
+	"algorithmsAndDataJunctionStructures/imooc/playWithDataStructures/UnionFind/QuickUnionV4"
+)
 
 // UF 对于当下固定的元素进行并或者查的操作
 type UF interface {
@@ -13,5 +15,5 @@ type UF interface {
 
 // NewUnionFind 传入固定数据(ID)数量size
 func NewUnionFind(size int) UF {
-	return QuickFind.NewUnionFind(size)
+	return QuickUnionV4.NewUnionFind(size)
 }
