@@ -10,7 +10,7 @@ func mergeSort(x []int, l, r int, mergeFunc mergeFunc) {
 	if l >= r {
 		return
 	}
-	mid := (r-l)/2 + l
+	mid := (r-l)/2 + l // TIPS: 当处理上亿级别规模的数据的时候如果使用 (l + r) / 2 获取mid值, l + r的过程可能会产生溢出, 如果想规避这个问题可以将刚刚的算式优化为 l + (r - l) / 2, 这样可以避免溢出
 	mergeSort(x, l, mid, mergeFunc)
 	mergeSort(x, mid+1, r, mergeFunc)
 	mergeFunc(x, l, mid, r)
