@@ -1,0 +1,91 @@
+package MergeSort
+
+type mergeFunc func(x []int, l, mid, r int)
+
+func sort(x []int, mergeFunc mergeFunc) {
+	mergeSort(x, 0, len(x)-1, mergeFunc)
+}
+
+func mergeSort(x []int, l, r int, mergeFunc mergeFunc) {
+	if l >= r {
+		return
+	}
+	mid := (r-l)/2 + l
+	mergeSort(x, l, mid, mergeFunc)
+	mergeSort(x, mid+1, r, mergeFunc)
+	mergeFunc(x, l, mid, r)
+}
+
+func SortByDESC(x []int) {
+	mergeFunc := mergeFunc(func(x []int, l, mid, r int) {
+		xCopy := make([]int, r-l+1)
+		copy(xCopy, x[l:r+1])
+
+		xCopyMid := mid - l
+		xCopyL := 0
+		xCopyR := xCopyMid + 1
+		k := l
+		for {
+			if xCopyL > xCopyMid && xCopyR > len(xCopy)-1 {
+				break
+			}
+			if xCopyL <= xCopyMid && xCopyR <= len(xCopy)-1 {
+				if xCopy[xCopyL] < xCopy[xCopyR] {
+					x[k] = xCopy[xCopyL]
+					xCopyL++
+				} else {
+					x[k] = xCopy[xCopyR]
+					xCopyR++
+				}
+			} else {
+				if xCopyR > len(xCopy)-1 {
+					x[k] = xCopy[xCopyL]
+					xCopyL++
+				} else {
+					x[k] = xCopy[xCopyR]
+					xCopyR++
+				}
+			}
+			k++
+		}
+	})
+
+	sort(x, mergeFunc)
+}
+
+func SortByASC(x []int) {
+	mergeFunc := mergeFunc(func(x []int, l, mid, r int) {
+		xCopy := make([]int, r-l+1)
+		copy(xCopy, x[l:r+1])
+
+		xCopyMid := mid - l
+		xCopyL := 0
+		xCopyR := xCopyMid + 1
+		k := l
+		for {
+			if xCopyL > xCopyMid && xCopyR > len(xCopy)-1 {
+				break
+			}
+			if xCopyL <= xCopyMid && xCopyR <= len(xCopy)-1 {
+				if xCopy[xCopyL] > xCopy[xCopyR] {
+					x[k] = xCopy[xCopyL]
+					xCopyL++
+				} else {
+					x[k] = xCopy[xCopyR]
+					xCopyR++
+				}
+			} else {
+				if xCopyR > len(xCopy)-1 {
+					x[k] = xCopy[xCopyL]
+					xCopyL++
+				} else {
+					x[k] = xCopy[xCopyR]
+					xCopyR++
+				}
+			}
+			k++
+		}
+	})
+
+	sort(x, mergeFunc)
+}
