@@ -29,22 +29,13 @@ func SortByDESC(x []int) {
 			if xCopyL > xCopyMid && xCopyR > len(xCopy)-1 {
 				break
 			}
-			if xCopyL <= xCopyMid && xCopyR <= len(xCopy)-1 {
-				if xCopy[xCopyL] < xCopy[xCopyR] {
-					x[k] = xCopy[xCopyL]
-					xCopyL++
-				} else {
-					x[k] = xCopy[xCopyR]
-					xCopyR++
-				}
-			} else {
-				if xCopyR > len(xCopy)-1 {
-					x[k] = xCopy[xCopyL]
-					xCopyL++
-				} else {
-					x[k] = xCopy[xCopyR]
-					xCopyR++
-				}
+
+			if xCopyR > len(xCopy)-1 || (xCopyL <= xCopyMid && xCopy[xCopyL] < xCopy[xCopyR]) { // 如果R越界了或者我自身存在并且比R对应的元素小
+				x[k] = xCopy[xCopyL]
+				xCopyL++
+			} else { // R一定没有越界, 并且L越界了或者R比L对应的元素小
+				x[k] = xCopy[xCopyR]
+				xCopyR++
 			}
 			k++
 		}
@@ -66,22 +57,13 @@ func SortByASC(x []int) {
 			if xCopyL > xCopyMid && xCopyR > len(xCopy)-1 {
 				break
 			}
-			if xCopyL <= xCopyMid && xCopyR <= len(xCopy)-1 {
-				if xCopy[xCopyL] > xCopy[xCopyR] {
-					x[k] = xCopy[xCopyL]
-					xCopyL++
-				} else {
-					x[k] = xCopy[xCopyR]
-					xCopyR++
-				}
-			} else {
-				if xCopyR > len(xCopy)-1 {
-					x[k] = xCopy[xCopyL]
-					xCopyL++
-				} else {
-					x[k] = xCopy[xCopyR]
-					xCopyR++
-				}
+
+			if xCopyR > len(xCopy)-1 || (xCopyL <= xCopyMid && xCopy[xCopyL] > xCopy[xCopyR]) { // 如果R越界了或者我自身存在并且比R对应的元素大
+				x[k] = xCopy[xCopyL]
+				xCopyL++
+			} else { // R一定没有越界, 并且L越界了或者R比L对应的元素大
+				x[k] = xCopy[xCopyR]
+				xCopyR++
 			}
 			k++
 		}
