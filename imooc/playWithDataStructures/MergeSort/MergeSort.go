@@ -1,5 +1,7 @@
 package MergeSort
 
+import "fmt"
+
 type mergeFunc func(x []int, l, mid, r int)
 
 func sort(x []int, mergeFunc mergeFunc) {
@@ -13,6 +15,26 @@ func mergeSort(x []int, l, r int, mergeFunc mergeFunc) {
 	mid := (r-l)/2 + l // TIPS: 当处理上亿级别规模的数据的时候如果使用 (l + r) / 2 获取mid值, l + r的过程可能会产生溢出, 如果想规避这个问题可以将刚刚的算式优化为 l + (r - l) / 2, 这样可以避免溢出
 	mergeSort(x, l, mid, mergeFunc)
 	mergeSort(x, mid+1, r, mergeFunc)
+	mergeFunc(x, l, mid, r)
+}
+
+// mergeSortDebug 和 mergeSort 作用一致, 但是会打印当前函数传入的参数, 需要执行的数组等信息
+func mergeSortDebug(x []int, l, r int, mergeFunc mergeFunc, deep int) {
+	fmt.Printf("%s l:%d r:%d x: %v\n",
+		func(deep int) (result string) {
+			result += "--"
+			for i := 0; i < deep; i++ {
+				result += "--"
+			}
+			return result
+		}(deep),
+		l, r, x[l:r+1])
+	if l >= r {
+		return
+	}
+	mid := (r-l)/2 + l // TIPS: 当处理上亿级别规模的数据的时候如果使用 (l + r) / 2 获取mid值, l + r的过程可能会产生溢出, 如果想规避这个问题可以将刚刚的算式优化为 l + (r - l) / 2, 这样可以避免溢出
+	mergeSortDebug(x, l, mid, mergeFunc, deep+1)
+	mergeSortDebug(x, mid+1, r, mergeFunc, deep+1)
 	mergeFunc(x, l, mid, r)
 }
 
